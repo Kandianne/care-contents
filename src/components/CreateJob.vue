@@ -1,41 +1,15 @@
 <template>
-  <v-form v-model="valid">
+  <v-form>
     <v-container>
       <v-row>
-        <v-col
+        <v-col v-for="q in questions" v-bind:key="q.name"
           cols="12"
           md="4"
         >
           <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
+            v-model="q.text"
             :counter="10"
-            label="First name"
-            required
-          ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="lastname"
-            :rules="nameRules"
-            :counter="10"
-            label="Last name"
-            required
-          ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
+            :for="q.label"
             required
           ></v-text-field>
         </v-col>
@@ -46,19 +20,17 @@
 
 <script>
   export default {
+    r: () => ({
+      requiredRule: [
+        v => !!v || 'Required',
+      ],
+    }),
     data: () => ({
-      valid: false,
-      firstname: '',
-      lastname: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
+      questions: [
+        {name: "date", text: "When do you want to move?" },
+        {name: "hours-estimated", text: "How many hours of help do you need?"},
+        {name: "address", text: "Where can we meet you?"}
+      ]
     }),
   }
 </script>
