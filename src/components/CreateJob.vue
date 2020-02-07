@@ -1,14 +1,13 @@
 <template>
-  <v-form v-model="valid">
+  <v-form>
     <v-container>
       <v-row>
-        <v-col
+        <v-col v-for="q in questions" v-bind:key="q.name"
           cols="12"
           md="4"
         >
           <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
+            v-model="q.text"
             :counter="10"
             label="First name"
             required
@@ -58,18 +57,9 @@
 
 <script>
   export default {
-    data: () => ({
-      valid: false,
-      firstname: '',
-      lastname: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
+    r: () => ({
+      requiredRule: [
+        v => !!v || 'Required',
       ],
       radioGroup: 1,
       moveOptions: [
@@ -77,6 +67,13 @@
         "Unload",
         "Both",
         "Other"
+      ]
+    }),
+    data: () => ({
+      questions: [
+        {name: "date", text: "When do you want to move?" },
+        {name: "hours-estimated", text: "How many hours of help do you need?"},
+        {name: "address", text: "Where can we meet you?"}
       ]
     }),
   }
