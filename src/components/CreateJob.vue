@@ -33,12 +33,24 @@
           md="4"
         >
           <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
+            v-model="phone"
+            :rules="phoneRules"
+            label="Phone"
             required
           ></v-text-field>
         </v-col>
+      </v-row>
+      <v-row>
+          <v-radio-group v-model="moveOptions">
+        <v-col>
+            <v-radio
+              v-for="n in moveOptions"
+              :key="n"
+              :label="n"
+              :value="n"
+            ></v-radio>
+        </v-col>
+          </v-radio-group>
       </v-row>
     </v-container>
   </v-form>
@@ -59,6 +71,13 @@
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
+      radioGroup: 1,
+      moveOptions: [
+        "Load",
+        "Unload",
+        "Both",
+        "Other"
+      ]
     }),
   }
 </script>
