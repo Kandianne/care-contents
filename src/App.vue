@@ -4,6 +4,7 @@
 </main>
 </template>
 
+<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 <script>
 import CreateJob from './components/CreateJob';
 

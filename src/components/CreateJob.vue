@@ -1,8 +1,7 @@
-<template>
-  <v-form>
+<template >
+  <v-form id="new-job" @submit.prevent="submitForm">
     <v-container>
       <v-row>
-        <!-- <v-col v-for="q in questions" v-bind:key="q.name" -->
         <v-col
           cols="12"
           md="4"
@@ -39,7 +38,7 @@
         </v-col>
       </v-row>
       <v-row>
-          <v-radio-group v-model="moveOptions" row>
+          <v-radio-group v-model="moveOptionSelected" row>
             <v-radio
               v-for="n in moveOptions"
               :key="n"
@@ -52,6 +51,7 @@
       <v-col cols="12" md="12">
           <v-textarea
             outlined
+            v-model="briefDescription"
             name="input-7-4"
             label="Brief description"
           ></v-textarea>
@@ -99,11 +99,16 @@
           ></v-text-field>
       </v-col>
       </v-row>
+      <v-row>
+        <button type="submit">Send Info</button>
+      </v-row>
     </v-container>
   </v-form>
 </template>
 
 <script>
+import emailjs from 'emailjs-com';
+
   export default {
     r: () => ({
       requiredRule: [
@@ -111,18 +116,37 @@
       ]      
     }),
     data: () => ({
-      // questions: [
-      //   {name: "date", text: "When do you want to move?" },
-      //   {name: "hours-estimated", text: "How many hours of help do you need?"},
-      //   {name: "address", text: "Where can we meet you?"}
-      // ],
       moveOptions: [
         "Load",
         "Unload",
         "Both",
         "Other"
       ],
-      radioGroup: 1
+      radioGroup: 1,
+      firstName: "",
+      lastName: "",
+      phone: 0,
+      briefDescription: "",
+      address2: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: "",
+      moveOptionSelected: ""
     }),
+    methods: {
+      submitForm: function (e) {
+            console.log('SUCCESS!', this.firstName);
+
+         emailjs.sendForm('carefulcontentsmovers', 'template_9hxRp4gy', this.firstName, 'user_y0vRaKJBiVvgsBXJpxxN0')
+        .then((result) => {
+            console.log('SUCCESS!', response.status, response.text);
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+        alert(this.moveOptionSelected)
+      }
+    }
+
   }
 </script>
