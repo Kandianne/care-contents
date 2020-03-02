@@ -8,12 +8,12 @@
         >
           <v-text-field
             v-model="firstName"
+            name="firstName"
             :counter="10"
             label="First name"
             required
           ></v-text-field>
         </v-col>
-
         <v-col
           cols="12"
           md="4"
@@ -38,13 +38,10 @@
         </v-col>
       </v-row>
       <v-row>
-          <v-radio-group v-model="moveOptionSelected" row>
-            <v-radio
-              v-for="n in moveOptions"
-              :key="n"
+          <v-radio-group v-model="active" row>
+            <v-radio v-for="n in moveOptions" :key="n"
               :label="n"
-              :value="n"
-            ></v-radio>
+              :value="n" type="radio" v-model="moveOptionSelected"></v-radio>
           </v-radio-group>
       </v-row>
       <v-row>
@@ -59,7 +56,7 @@
       </v-row>
       <v-row>
         <v-text-field
-            v-model="address"
+            v-model="address1"
             :counter="10"
             label="Street address"
             required
@@ -92,7 +89,7 @@
       </v-col>
       <v-col cols="12" md="4">
            <v-text-field
-            v-model="zipCOde"
+            v-model="zipCode"
             :counter="10"
             label="Zip Code"
             required
@@ -103,6 +100,7 @@
         <button type="submit">Send Info</button>
       </v-row>
     </v-container>
+    {{ $data }}
   </v-form>
 </template>
 
@@ -127,24 +125,23 @@ import emailjs from 'emailjs-com';
       lastName: "",
       phone: 0,
       briefDescription: "",
-      address2: "",
+      address1: "",
       address2: "",
       city: "",
       state: "",
-      zipcode: "",
+      zipCode: "",
       moveOptionSelected: ""
     }),
     methods: {
-      submitForm: function (e) {
-            console.log('SUCCESS!', this.firstName);
-
-         emailjs.sendForm('carefulcontentsmovers', 'template_9hxRp4gy', this.firstName, 'user_y0vRaKJBiVvgsBXJpxxN0')
-        .then((result) => {
-            console.log('SUCCESS!', response.status, response.text);
-        }, (error) => {
-            console.log('FAILED...', error);
-        });
-        alert(this.moveOptionSelected)
+      submitForm (e) {
+            console.log(this)
+        //  emailjs.sendForm('carefulcontentsmovers', 'template_9hxRp4gy', this.firstName, 'user_y0vRaKJBiVvgsBXJpxxN0')
+        // .then((result) => {
+        //     alert('SUCCESS!', result);
+        // }, (error) => {
+        //     alert(error)
+        // });
+        // alert(this.moveOptionSelected)
       }
     }
 
